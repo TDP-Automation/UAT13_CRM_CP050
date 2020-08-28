@@ -311,8 +311,8 @@ Sub RecursosAlta()
  
 	JavaWindow("Ejecutivo de interacción").JavaInternalFrame("Negociar Configuración").JavaTab("JXTabbedPane").Select "Asignación de número"
 	wait 3
-	'JavaWindow("Ejecutivo de interacción").JavaInternalFrame("Negociar Configuración").JavaEdit("TextFieldNative$1").Type "6%%%%%%%%"	
-	JavaWindow("Ejecutivo de interacción").JavaInternalFrame("Negociar Configuración").JavaEdit("TextFieldNative$1").Type "92095%%%%"
+	JavaWindow("Ejecutivo de interacción").JavaInternalFrame("Negociar Configuración").JavaEdit("TextFieldNative$1").Type "6%%%%%%%%"	
+	'JavaWindow("Ejecutivo de interacción").JavaInternalFrame("Negociar Configuración").JavaEdit("TextFieldNative$1").Type "92095%%%%"
 	wait 2
 	JavaWindow("Ejecutivo de interacción").JavaInternalFrame("Negociar Configuración").JavaButton("Proponer números").Click
 	wait 2
@@ -1024,6 +1024,7 @@ Sub PagoManual()
 			wait 4
 			Exit Sub
 		End If
+		
 		JavaWindow("Ejecutivo de interacción").CaptureBitmap RutaEvidencias() &"Pago Manual.png", True
 		imagenToWord "Pago Manual", RutaEvidencias() &"Pago Manual.png"
 		JavaWindow("Ejecutivo de interacción").JavaDialog("Buscar: Grupo de órdenes_2").JavaButton("Enviar").Click
@@ -1268,8 +1269,8 @@ Sub EmpujeOrden()
 				While(JavaWindow("Ejecutivo de interacción").JavaDialog("Buscar: Grupo de órdenes_2").JavaList("Estado de la gestión manual:").Exist) = False
 					wait  1
 				Wend
-			wait 2
-			JavaWindow("Ejecutivo de interacción").JavaDialog("Buscar: Grupo de órdenes_2").JavaList("Estado de la gestión manual:").Select "Cumplimiento Completo Parcial"
+			wait 5
+			JavaWindow("Ejecutivo de interacción").JavaDialog("Buscar: Grupo de órdenes_2").JavaList("Estado de la gestión manual:").Select "Cumplimiento Completo"
 			wait 2
 			JavaWindow("Ejecutivo de interacción").JavaDialog("Buscar: Grupo de órdenes_2").JavaList("Motivo de la gestión manual").Select "Manejo manual: Manejo Manual OSS"
 			wait 2
@@ -1362,9 +1363,9 @@ Sub DetalleActividadOrden()
 	Next
 	
 	If varselec<>"Cerrar Acción de Orden" Then
-	 	DataTable("s_Resultado",dtLocalSheet)="Fallido"
+	 	DataTable("s_Resultado",dtLocalSheet)="Exito"
 		DataTable("s_Detalle",dtLocalSheet)="La orden "&DataTable("s_Nro_Orden",dtLocalSheet)&" culmino en la Actividad "&varselec&""
-		Reporter.ReportEvent micFail, DataTable("s_Resultado",dtLocalSheet), DataTable("s_Detalle",dtLocalSheet)
+		Reporter.ReportEvent micPass, DataTable("s_Resultado",dtLocalSheet), DataTable("s_Detalle",dtLocalSheet)
 		
 		JavaWindow("Ejecutivo de interacción").JavaInternalFrame("Ver acción de orden: 776642A").JavaButton("Cancelar").Click
 
